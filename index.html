@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Search Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .checkbox-label {
+            color: #d3d3d3; /* Light gray color */
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .checkbox-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .checkbox-container input {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">Image Search Tool</h1>
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="field">
+                        <label class="label">Search Term</label>
+                        <div class="control">
+                            <input class="input" type="text" id="searchQuery" placeholder="Enter your search term">
+                        </div>
+                    </div>
+                    <div class="field checkbox-container">
+                        <input type="checkbox" id="sizeFilter" checked>
+                        <label class="checkbox-label" for="sizeFilter">2 Megapixel and above</label>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" onclick="performSearch()">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchQuery').value;
+            const sizeFilter = document.getElementById('sizeFilter').checked;
+            if (query) {
+                const baseQuery = `site:unsplash.com OR site:pexels.com OR site:pixabay.com OR site:commons.wikimedia.org OR site:publicdomainarchive.com OR site:burst.shopify.com OR site:freeforcommercialuse.net OR site:publicdomainpictures.net OR site:isorepublic.com OR site:rawpixel.com OR site:stocksnap.io ${query}`;
+                const sizeParam = sizeFilter ? '&tbs=isz:lt,islt:2mp' : '';
+                const url = `https://www.google.com/search?q=${encodeURIComponent(baseQuery)}&tbm=isch${sizeParam}`;
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
+
